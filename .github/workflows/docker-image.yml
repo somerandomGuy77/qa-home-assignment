@@ -21,7 +21,7 @@ jobs:
       # Build and test the project in Docker
       - name: Build and run tests in Docker
         run: |
-          mkdir -p $GITHUB_WORKSPACE/Test-output/
+          mkdir -p ./Test-output/
 
           # Build the Docker image
           docker build -t qa-home-assignement .
@@ -29,12 +29,14 @@ jobs:
           # Run the container
           docker run --name CardValidation -d -p 8080:80 qa-home-assignement
 
+          docker exec -i CardValidation /bin/bash -c "cd /app/CardValidation.Tests ; ls -l"
+
           # Copy test results
-          docker cp CardValidation:/app/CardValidation.Tests/TestResults/ $GITHUB_WORKSPACE/Test-output/
+          docker cp CardValidation:/app/CardValidation.Tests/TestResults/ ./Test-output/
           
       # Upload Allure test results
       - name: Upload test results
         uses: actions/upload-artifact@v3
         with:
           name: test-results
-          path: $GITHUB_WORKSPACE/Test-output/*
+          path: ./Test-output/*
