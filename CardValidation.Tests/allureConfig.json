@@ -1,0 +1,8 @@
+{
+    "allure": {
+        "directory": "..\\..\\..\\Test-results",
+        "failExceptions": [
+            "MyNamespace.MyAssertionException"
+        ]
+    }
+}

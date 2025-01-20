@@ -32,3 +32,19 @@ API should return all validation errors in case of failure.
 1. Fork the repository
 2. Clone the repository on your local machine 
 3. Compile and Run application Visual Studio 2022.
+
+
+# Run Tests in Visual Studio 2022
+
+Run test and display results with Allure html report (https://allurereport.org/docs/install/)
+- dotnet clean
+- dotnet restore
+- dotnet build
+- dotnet test
+- allure serve .\CardValidation.Tests\Test-results
+
+# Build docker image / re-run tests on demand
+
+- docker build -t qa-home-assignement .
+- docker run --name CardValidation -d -p 8080:80 qa-home-assignement
+- docker exec CardValidation bash -c "dotnet test /app/CardValidation.Tests/"
