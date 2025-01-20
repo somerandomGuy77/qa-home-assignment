@@ -1,0 +1,35 @@
+name: NUnit Test CI with Docker
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Set up Docker
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Build and test the project in Docker
+      - name: Build and run tests in Docker
+        run: |
+          # Build the Docker image
+          docker build -t qa-home-assignement .
+
+          # Run the container
+          docker run --name CardValidation -d -p 8080:80 qa-home-assignement
+          
+      # Upload Allure test results
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: /app/CardValidation.Tests/Test-results/*
