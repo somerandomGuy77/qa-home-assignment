@@ -26,7 +26,6 @@ jobs:
 
           # Run the container
           docker run --name CardValidation -d -p 8080:80 qa-home-assignement
-          docker wait CardValidation
 
           # Copy test results
           docker cp CardValidation:/app/CardValidation.Tests/Test-results $GITHUB_WORKSPACE
