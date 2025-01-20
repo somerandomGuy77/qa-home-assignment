@@ -84,7 +84,6 @@ namespace CardValidation.Tests
         public void ValidateIssueDate_ValidCurrentMonthYear_ReturnsTrue()
         {
             string currentMonthYear = DateTime.Now.ToString("MM/yyyy");
-
             var result = _cardValidationService.ValidateIssueDate(currentMonthYear);
 
             Assert.IsTrue(result);
