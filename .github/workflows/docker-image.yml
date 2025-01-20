@@ -28,7 +28,6 @@ jobs:
 
           # Run the container
           docker run --name CardValidation -d -p 8080:80 qa-home-assignement
-          docker exec CardValidation bash -c "dotnet test /app/CardValidation.Tests/"
 
           # Copy test results
           docker cp CardValidation:/app/CardValidation.Tests/Test-results/ $GITHUB_WORKSPACE/Test-output/
