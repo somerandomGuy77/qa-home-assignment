@@ -26,10 +26,14 @@ jobs:
 
           # Run the container
           docker run --name CardValidation -d -p 8080:80 qa-home-assignement
+          docker wait CardValidation
+
+          # Run the container
+          docker cp CardValidation:/app/CardValidation.Tests/Test-results $GITHUB_WORKSPACE
           
       # Upload Allure test results
       - name: Upload test results
         uses: actions/upload-artifact@v3
         with:
           name: test-results
-          path: /app/CardValidation.Tests/Test-results/*
+          path: $GITHUB_WORKSPACE/Test-results/*
