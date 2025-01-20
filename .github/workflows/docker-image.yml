@@ -29,10 +29,8 @@ jobs:
           # Run the container
           docker run --name CardValidation -d -p 8080:80 qa-home-assignement
 
-          docker exec -i CardValidation /bin/bash -c "cd /app/CardValidation.Tests ; ls -l; cd /app/CardValidation.Tests/Test-results/ ; ls -l"
-
           # Copy test results
-          docker cp CardValidation:/app/CardValidation.Tests/Test-results/ $GITHUB_WORKSPACE/Test-output/
+          docker cp CardValidation:/app/CardValidation.Tests/TestResults/ $GITHUB_WORKSPACE/Test-output/
           
       # Upload Allure test results
       - name: Upload test results

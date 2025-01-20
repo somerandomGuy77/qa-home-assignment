@@ -14,7 +14,7 @@ RUN dotnet restore
 RUN dotnet build
 
 # Run tests (failing tests will not stop the build due to "|| true" allowing errors)
-RUN dotnet test /app/CardValidation.Tests/ || true
+RUN dotnet test /app/CardValidation.Tests/ --logger "trx;LogFileName=test-results.trx" || true
 
 # Expose port 80 to allow external traffic to access the container
 EXPOSE 80
