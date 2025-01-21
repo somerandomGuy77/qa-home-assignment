@@ -33,10 +33,17 @@ jobs:
 
           # Copy test results
           docker cp CardValidation:/app/CardValidation.Tests/TestResults/ ./Test-output/
-          
-      # Upload Allure test results
+          docker cp CardValidation:/app/CardValidation.Tests/bin/Debug/net8.0/allure-results ./Allure-report/
+
+      # Upload test results
       - name: Upload test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-results
           path: ./Test-output/*
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: ./Allure-report/*
