@@ -19,7 +19,7 @@ API should return credit card type in case of success: Master Card, Visa or Amer
 API should return all validation errors in case of failure. 
 
 
-# Technical Requirements 
+# Technical Requirements
 
  - Write unit tests that covers 80% of application 
  - Write integration tests (preferably using Reqnroll framework) 
@@ -36,15 +36,18 @@ API should return all validation errors in case of failure.
 
 # Run Tests in Visual Studio 2022
 
-Run test and display results with Allure html report (https://allurereport.org/docs/install/)
+Run tests and display results with Allure html report (https://allurereport.org/docs/install/)
 - dotnet clean
 - dotnet restore
 - dotnet build
 - dotnet test
-- allure serve .\CardValidation.Tests\Test-results
+- allure serve .\CardValidation.Tests\Test-results-allure
 
 # Build docker image / re-run tests on demand
 
+Run tests in docker and display results with Allure html report (https://allurereport.org/docs/install/)
 - docker build -t qa-home-assignement .
 - docker run --name CardValidation -d -p 8080:80 qa-home-assignement
+- docker cp CardValidation:/app/CardValidation.Tests/Test-results-allure/ ./CardValidation.Tests/Test-results-allure
+- allure serve .\CardValidation.Tests\Test-results-allure
 - docker exec CardValidation bash -c "dotnet test /app/CardValidation.Tests/"
