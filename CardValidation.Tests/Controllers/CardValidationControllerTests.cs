@@ -2,14 +2,14 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Text;
 using System.Net;
-using Newtonsoft.Json;
 using FluentAssertions;
 using Allure.NUnit;
 using Allure.NUnit.Attributes;
 using CardValidation.Core.Enums;
 using Allure.Net.Commons;
+using System.Text.Json;
 
-namespace CardValidation.Tests
+namespace CardValidation.Tests.Controllers
 {
     [TestFixture]
     [AllureNUnit]
@@ -38,12 +38,12 @@ namespace CardValidation.Tests
                 Cvv = "123"
             };
 
-            var content = new StringContent(JsonConvert.SerializeObject(validCard), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonSerializer.Serialize(validCard), Encoding.UTF8, "application/json");
 
             var response = await _client.PostAsync("/cardvalidation/card/credit/validate", content);
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(validCard)));
+            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(validCard)));
             AllureApi.AddAttachment("response json", "application/json", Encoding.UTF8.GetBytes(responseContent));
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -63,12 +63,12 @@ namespace CardValidation.Tests
                 Cvv = "123"
             };
 
-            var content = new StringContent(JsonConvert.SerializeObject(validCard), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonSerializer.Serialize(validCard), Encoding.UTF8, "application/json");
 
             var response = await _client.PostAsync("/cardvalidation/card/credit/validate", content);
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(validCard)));
+            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(validCard)));
             AllureApi.AddAttachment("response json", "application/json", Encoding.UTF8.GetBytes(responseContent));
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -88,12 +88,12 @@ namespace CardValidation.Tests
                 Cvv = "123"
             };
 
-            var content = new StringContent(JsonConvert.SerializeObject(validCard), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonSerializer.Serialize(validCard), Encoding.UTF8, "application/json");
 
             var response = await _client.PostAsync("/cardvalidation/card/credit/validate", content);
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(validCard)));
+            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(validCard)));
             AllureApi.AddAttachment("response json", "application/json", Encoding.UTF8.GetBytes(responseContent));
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -113,12 +113,12 @@ namespace CardValidation.Tests
                 Cvv = "123"
             };
 
-            var content = new StringContent(JsonConvert.SerializeObject(invalidCard), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonSerializer.Serialize(invalidCard), Encoding.UTF8, "application/json");
 
             var response = await _client.PostAsync("/cardvalidation/card/credit/validate", content);
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(invalidCard)));
+            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(invalidCard)));
             AllureApi.AddAttachment("response json", "application/json", Encoding.UTF8.GetBytes(responseContent));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -138,12 +138,12 @@ namespace CardValidation.Tests
                 Cvv = "123"
             };
 
-            var content = new StringContent(JsonConvert.SerializeObject(invalidCard), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonSerializer.Serialize(invalidCard), Encoding.UTF8, "application/json");
 
             var response = await _client.PostAsync("/cardvalidation/card/credit/validate", content);
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(invalidCard)));
+            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(invalidCard)));
             AllureApi.AddAttachment("response json", "application/json", Encoding.UTF8.GetBytes(responseContent));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -163,12 +163,12 @@ namespace CardValidation.Tests
                 Cvv = "123"
             };
 
-            var content = new StringContent(JsonConvert.SerializeObject(invalidCard), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonSerializer.Serialize(invalidCard), Encoding.UTF8, "application/json");
 
             var response = await _client.PostAsync("/cardvalidation/card/credit/validate", content);
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(invalidCard)));
+            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(invalidCard)));
             AllureApi.AddAttachment("response json", "application/json", Encoding.UTF8.GetBytes(responseContent));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -188,12 +188,12 @@ namespace CardValidation.Tests
                 Cvv = "123"
             };
 
-            var content = new StringContent(JsonConvert.SerializeObject(invalidCard), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonSerializer.Serialize(invalidCard), Encoding.UTF8, "application/json");
 
             var response = await _client.PostAsync("/cardvalidation/card/credit/validate", content);
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(invalidCard)));
+            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(invalidCard)));
             AllureApi.AddAttachment("response json", "application/json", Encoding.UTF8.GetBytes(responseContent));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -213,12 +213,12 @@ namespace CardValidation.Tests
                 Cvv = "123"
             };
 
-            var content = new StringContent(JsonConvert.SerializeObject(invalidCard), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonSerializer.Serialize(invalidCard), Encoding.UTF8, "application/json");
 
             var response = await _client.PostAsync("/cardvalidation/card/credit/validate", content);
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(invalidCard)));
+            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(invalidCard)));
             AllureApi.AddAttachment("response json", "application/json", Encoding.UTF8.GetBytes(responseContent));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -238,12 +238,12 @@ namespace CardValidation.Tests
                 Cvv = "123"
             };
 
-            var content = new StringContent(JsonConvert.SerializeObject(invalidCard), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonSerializer.Serialize(invalidCard), Encoding.UTF8, "application/json");
 
             var response = await _client.PostAsync("/cardvalidation/card/credit/validate", content);
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(invalidCard)));
+            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(invalidCard)));
             AllureApi.AddAttachment("response json", "application/json", Encoding.UTF8.GetBytes(responseContent));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -263,12 +263,12 @@ namespace CardValidation.Tests
                 Cvv = "123"
             };
 
-            var content = new StringContent(JsonConvert.SerializeObject(invalidCard), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonSerializer.Serialize(invalidCard), Encoding.UTF8, "application/json");
 
             var response = await _client.PostAsync("/cardvalidation/card/credit/validate", content);
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(invalidCard)));
+            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(invalidCard)));
             AllureApi.AddAttachment("response json", "application/json", Encoding.UTF8.GetBytes(responseContent));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -288,12 +288,12 @@ namespace CardValidation.Tests
                 Cvv = "" // Invalid (empty CVV)
             };
 
-            var content = new StringContent(JsonConvert.SerializeObject(invalidCard), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonSerializer.Serialize(invalidCard), Encoding.UTF8, "application/json");
 
             var response = await _client.PostAsync("/cardvalidation/card/credit/validate", content);
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(invalidCard)));
+            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(invalidCard)));
             AllureApi.AddAttachment("response json", "application/json", Encoding.UTF8.GetBytes(responseContent));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -313,12 +313,12 @@ namespace CardValidation.Tests
                 Cvv = "12" // Invalid (CVV is too short)
             };
 
-            var content = new StringContent(JsonConvert.SerializeObject(invalidCard), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonSerializer.Serialize(invalidCard), Encoding.UTF8, "application/json");
 
             var response = await _client.PostAsync("/cardvalidation/card/credit/validate", content);
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(invalidCard)));
+            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(invalidCard)));
             AllureApi.AddAttachment("response json", "application/json", Encoding.UTF8.GetBytes(responseContent));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -338,12 +338,12 @@ namespace CardValidation.Tests
                 Cvv = "1234" // Invalid (CVV is too long for Visa)
             };
 
-            var content = new StringContent(JsonConvert.SerializeObject(invalidCard), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonSerializer.Serialize(invalidCard), Encoding.UTF8, "application/json");
 
             var response = await _client.PostAsync("/cardvalidation/card/credit/validate", content);
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(invalidCard)));
+            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(invalidCard)));
             AllureApi.AddAttachment("response json", "application/json", Encoding.UTF8.GetBytes(responseContent));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -363,12 +363,12 @@ namespace CardValidation.Tests
                 Cvv = "1234" // Invalid (CVV is too long for Mastercard)
             };
 
-            var content = new StringContent(JsonConvert.SerializeObject(invalidCard), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonSerializer.Serialize(invalidCard), Encoding.UTF8, "application/json");
 
             var response = await _client.PostAsync("/cardvalidation/card/credit/validate", content);
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(invalidCard)));
+            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(invalidCard)));
             AllureApi.AddAttachment("response json", "application/json", Encoding.UTF8.GetBytes(responseContent));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -388,12 +388,12 @@ namespace CardValidation.Tests
                 Cvv = "123" // Invalid (CVV is too short for American Express)
             };
 
-            var content = new StringContent(JsonConvert.SerializeObject(invalidCard), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonSerializer.Serialize(invalidCard), Encoding.UTF8, "application/json");
 
             var response = await _client.PostAsync("/cardvalidation/card/credit/validate", content);
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(invalidCard)));
+            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(invalidCard)));
             AllureApi.AddAttachment("response json", "application/json", Encoding.UTF8.GetBytes(responseContent));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -413,12 +413,12 @@ namespace CardValidation.Tests
                 Cvv = "123"
             };
 
-            var content = new StringContent(JsonConvert.SerializeObject(invalidCard), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonSerializer.Serialize(invalidCard), Encoding.UTF8, "application/json");
 
             var response = await _client.PostAsync("/cardvalidation/card/credit/validate", content);
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(invalidCard)));
+            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(invalidCard)));
             AllureApi.AddAttachment("response json", "application/json", Encoding.UTF8.GetBytes(responseContent));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -438,12 +438,12 @@ namespace CardValidation.Tests
                 Cvv = "123"
             };
 
-            var content = new StringContent(JsonConvert.SerializeObject(invalidCard), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonSerializer.Serialize(invalidCard), Encoding.UTF8, "application/json");
 
             var response = await _client.PostAsync("/cardvalidation/card/credit/validate", content);
             var responseContent = await response.Content.ReadAsStringAsync();
 
-            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(invalidCard)));
+            AllureApi.AddAttachment("request json", "application/json", Encoding.UTF8.GetBytes(JsonSerializer.Serialize(invalidCard)));
             AllureApi.AddAttachment("response json", "application/json", Encoding.UTF8.GetBytes(responseContent));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);

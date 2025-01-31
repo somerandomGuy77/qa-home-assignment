@@ -3,7 +3,7 @@ using CardValidation.Core.Enums;
 using Allure.NUnit;
 using Allure.NUnit.Attributes;
 
-namespace CardValidation.Tests
+namespace CardValidation.Tests.Services
 {
     [TestFixture]
     [AllureNUnit]
@@ -156,21 +156,22 @@ namespace CardValidation.Tests
         }
 
         [AllureName("Get Payment System Type - Valid Card Number - Returns Correct Payment System")]
-        [Test]
-        public void GetPaymentSystemType_ValidCardNumber_ReturnsCorrectPaymentSystem()
+        [TestCase("4111111111111111", PaymentSystemType.Visa)]              // Visa card example
+        [TestCase("5105105105105100", PaymentSystemType.MasterCard)]        // MasterCard card example
+        [TestCase("340000000000009", PaymentSystemType.AmericanExpress)]    // American Express card example
+        public void GetPaymentSystemType_ValidCardNumber_ReturnsCorrectPaymentSystem(string cardNumber, PaymentSystemType expectedPaymentSystem)
         {
-            var visaCard = "4111111111111111";          // Visa card example
-            var masterCard = "5105105105105100";        // MasterCard card example
-            var amexCard = "340000000000009";           // American Express card example
+            var result = _cardValidationService.GetPaymentSystemType(cardNumber);
+
+            Assert.That(result, Is.EqualTo(expectedPaymentSystem));
+        }
+
+        [AllureName("Get Payment System Type - Invalid Card Number - Returns Not Implemented Exception")]
+        [Test]
+        public void GetPaymentSystemType_InvalidCardNumber_ReturnsNotImplementedException()
+        {
             var invalidCardNumber = "123123123123123123"; // Invalid card provider
 
-            var visaResult = _cardValidationService.GetPaymentSystemType(visaCard);
-            var masterCardResult = _cardValidationService.GetPaymentSystemType(masterCard);
-            var amexResult = _cardValidationService.GetPaymentSystemType(amexCard);
-
-            Assert.That(visaResult, Is.EqualTo(PaymentSystemType.Visa));
-            Assert.That(masterCardResult, Is.EqualTo(PaymentSystemType.MasterCard));
-            Assert.That(amexResult, Is.EqualTo(PaymentSystemType.AmericanExpress));
             Assert.Throws<NotImplementedException>(() => _cardValidationService.GetPaymentSystemType(invalidCardNumber));
         }
     }

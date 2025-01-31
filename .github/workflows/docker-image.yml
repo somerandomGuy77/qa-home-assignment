@@ -22,6 +22,7 @@ jobs:
       - name: Build and run tests in Docker
         run: |
           mkdir -p ./Test-output/
+          mkdir -p ./Test-output-allure/
 
           # Build the Docker image
           docker build -t qa-home-assignement .
@@ -29,14 +30,29 @@ jobs:
           # Run the container
           docker run --name CardValidation -d -p 8080:80 qa-home-assignement
 
-          docker exec -i CardValidation /bin/bash -c "cd /app/CardValidation.Tests ; ls -l"
-
           # Copy test results
           docker cp CardValidation:/app/CardValidation.Tests/TestResults/ ./Test-output/
+          docker cp CardValidation:/app/CardValidation.Tests/Test-results-allure/ ./Test-output-allure/
 
       # Upload test results
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: ./Test-output/*
+          path: ./Test-output/*     
+          
+      # Upload allure test results
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-allure
+          path: ./Test-output-allure/*
+
+      # Stop and remove the Docker container
+      - name: Stop and remove Docker container
+        run: |
+          docker images
+          docker ps -a
+          docker stop CardValidation
+          docker rm CardValidation
+
